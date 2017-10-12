@@ -1,0 +1,21 @@
+%h1 Search TMDb
+
+ - if @movies.empty?
+   %p No results were found
+   
+ - @movies.each do |movie|
+ - poster = movie.posters.first
+ 
+ %h2= movie.name
+  =image_tag(poster.url, height: poster,height, width: poster.width, :class => 'poster') if poster
+  
+  %ul#details
+    %li
+        %strong Rating:
+        = movie.certification
+    %li
+        %strong Release Date:
+        = movie.released
+    %li 
+        %strong Description:
+        = truncate(movie.overview, :length => 250)
