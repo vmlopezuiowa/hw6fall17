@@ -65,7 +65,7 @@ class MoviesController < ApplicationController
     if params[:search_terms] == nil or params[:search_terms] == ''
       redirect_to movies_path
     else
-      @parameters = params[:search_terms]["search_terms"]
+      @parameters = params[:search_terms]
       @movies=Movie.find_in_tmdb(@parameters)
       if @movies.empty?
         redirect_to movies_path
