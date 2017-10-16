@@ -37,7 +37,7 @@ class Movie < ActiveRecord::Base
         else
           current_hash[:rating] = 'no rating'
         end
-        acceptable_ratings = Set.new ['R', 'PG-13', 'PG', 'G', 'NC-17', 'NR']
+        acceptable_ratings = Set.new ['G', 'PG', 'PG-13', 'NC-17', 'R', 'NR']
         if not acceptable_ratings.include?(current_hash[:rating])
           current_hash[:rating] = 'NR'
         end
@@ -46,5 +46,31 @@ class Movie < ActiveRecord::Base
       end
     end
     return array_of_movie_hashes
+  end
+  def self.create_from_tmdb(IDs)
+    Tmdb::Api.key(self.api_key)
+    IDs.each do |id|
+      search_result = Tmdb::Movie.detail(id.to_i)
+      movie_hash = {}
+      movie_hash[:title] = search_result['title']
+      movie_releases = Tmdb::Movie.releases(id.to_i)["countries"]
+      if not movie_releases.blank?
+        movie_releases.each do |ratings_hash|
+          if ratings_hash.has_value?('US') and ratings_hash["certification"] != ""
+            movie_hash[:rating] = ratings_hash["certification"]
+            break
+          end
+        end
+      else
+        movie_hash[:rating] = 'NR'
+      end
+      acceptable_ratings = Set.new ['G', 'PG', 'PG-13', 'NC-17', 'R', 'NR']
+      if not acceptable_ratings.include?(movie_hash[:rating])
+        movie_hash[:rating] = 'NR'
+      end
+      movie_hash[:release_date] = search_result['release_date']
+      puts movie_hash
+      self.create!(movie_hash)
+    end
   end
 end
