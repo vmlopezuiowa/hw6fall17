@@ -72,5 +72,15 @@ class MoviesController < ApplicationController
       end
     end
   end
-
+  
+  def add_tmdb
+    checked_boxes = params[:tmdb_movies]
+    if checked_boxes.blank?
+      flash[:warning] = 'No movies to add'
+    else
+      Movie.create_from_tmdb(checked_boxes.keys)
+    end
+    redirect_to movies_path
+  end
+  
 end
