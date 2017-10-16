@@ -13,7 +13,7 @@
             %td= movie[:title]
             %td= movie[:rating]
             %td= movie[:release_date]
-            %td=check_box_tag "tmdb_movies[#{movie[:tmdb_id]}]"
+            %td=check_box_tag "checkbox[#{movie[:tmdb_id]}]"
   = submit_tag 'Add Movies', :id => 'submit_button'
 
 = link_to 'Return', movies_path
