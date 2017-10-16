@@ -54,6 +54,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'simplecov', :require => false
   gem 'rspec-expectations'
   gem 'cucumber-rails', :require=>false
   gem 'capybara'
