@@ -1,19 +1,19 @@
 %h1 Search TMDb
 = form_tag movies_add_tmdb_path, :method => :post, :id => 'add_movies' do
-    %table#movies
-        %thead
-            %tr
-                %th Movie Title
-                %th Rating
-                %th Release Date
-                %th Select Movie
-            %tbody
-                - @movies.each do |movie|
-                %tr
-                    %td= movie[:title]
-                    %td= movie[:rating]
-                    %td= movie[:release_date]
-                    %td=check_box_tag "tmdb_movies[#{movie[:tmdb_id]}]"
-    = submit_tag 'Add Movies', :id => 'submit_button'
+  %table#movies
+    %thead
+      %tr
+        %th Movie Title
+        %th Rating
+        %th Release Date
+        %th Select Movie
+      %tbody
+        - @movies.each do |movie|
+          %tr
+            %td= movie[:title]
+            %td= movie[:rating]
+            %td= movie[:release_date]
+            %td=check_box_tag "tmdb_movies[#{movie[:tmdb_id]}]"
+  = submit_tag 'Add Movies', :id => 'submit_button'
 
 = link_to 'Return', movies_path
