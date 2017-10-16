@@ -28,5 +28,5 @@
 = link_to 'Add new movie', new_movie_path
 = form_tag movies_search_tmdb_path, :method => :post, :id => 'search_form' do
   = label :search_terms, 'Search for movies'
-  = text_field_tag 'search_box'
+  = text_field_tag 'search_terms'
   = submit_tag 'Search TMDb', :id => 'search_button'
