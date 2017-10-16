@@ -47,9 +47,9 @@ class Movie < ActiveRecord::Base
     end
     return array_of_movie_hashes
   end
-  def self.create_from_tmdb(IDs)
+  def self.create_from_tmdb(Movie_IDs)
     Tmdb::Api.key(self.api_key)
-    IDs.each do |id|
+    Movie_IDs.each do |id|
       search_result = Tmdb::Movie.detail(id.to_i)
       movie_hash = {}
       movie_hash[:title] = search_result['title']
