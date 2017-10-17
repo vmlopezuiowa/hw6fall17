@@ -67,7 +67,8 @@ class MoviesController < ApplicationController
     else
       @parameters = params[:search_terms]
       @movies=Movie.find_in_tmdb(@parameters)
-      if @movies.empty?
+      if @movies == nil
+        flash[:error] = "No movies found"
         redirect_to movies_path
       end
     end
